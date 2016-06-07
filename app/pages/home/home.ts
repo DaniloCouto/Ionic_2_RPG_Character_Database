@@ -1,11 +1,17 @@
 import {Page} from 'ionic-angular';
-import {AdicionarPage} from '../adicionar/adicionar';
+import {SqlHelper} from '../../providers/sql-helper/sql-helper';
 
 @Page({
-  templateUrl: 'build/pages/home/home.html'
+  templateUrl: 'build/pages/home/home.html',
+  providers: [SqlHelper] 
 })
 export class HomePage {
-  adicionarPage = AdicionarPage
-  
-  constructor() {}
+  localSystemSqlHelper : SqlHelper
+  constructor(systemSqlHelper: SqlHelper) {
+    this.localSystemSqlHelper = systemSqlHelper;
+    this.insertSystem();
+  }
+  insertSystem() {
+    this.localSystemSqlHelper.insert('System',['name','description'])
+  }
 }
