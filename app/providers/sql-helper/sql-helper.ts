@@ -10,13 +10,13 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class SqlHelper {
-  public platform : any;
-  storage = new Storage(SqlStorage);
+  public platform : Platform;
+  public storage : Storage;
   constructor(platform: Platform) {
+    this.storage = new Storage(SqlStorage);
     this.platform =  platform;
     this.init();
   }
-
   init() {
     this.platform.ready().then(() => {
            this.storage.query('CREATE TABLE IF NOT EXISTS Characters (id INTEGER PRIMARY KEY AUTOINCREMENT, firstname TEXT, lastname TEXT)').then((data) => {
